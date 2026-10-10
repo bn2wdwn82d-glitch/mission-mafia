@@ -1,3 +1,4 @@
+import path from "node:path";
 import express from "express";
 import { createServer } from "node:http";
 import cors from "cors";
@@ -227,7 +228,11 @@ io.on("connection", (socket) => {
 });
 
 const PORT = Number(process.env.PORT) || 3001;
+app.use(express.static(path.resolve("dist")));
 
+app.get(/.*/, (_req, res) => {
+  res.sendFile(path.resolve("dist/index.html"));
+});
 httpServer.listen(PORT, "0.0.0.0", () => {
   console.log(`미션 마피아 서버 포트: ${PORT}`);
 });
