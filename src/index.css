@@ -1,0 +1,806 @@
+:root {
+  --bg: #100c0b;
+  --bg-2: #1a1412;
+  --paper: #221a16;
+  --line: #3a2c24;
+  --blood: #c23028;
+  --blood-dim: #7a1c18;
+  --gold: #d4b483;
+  --fog: #cbbba8;
+  --citizen: #8fb7c9;
+  --ok: #7d9a6a;
+  --danger: #e24b3d;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  min-height: 100%;
+  margin: 0;
+}
+
+body {
+  font-family: "IBM Plex Sans KR", sans-serif;
+  background:
+    radial-gradient(1200px 500px at 50% -10%, rgba(194, 48, 40, 0.18), transparent 55%),
+    radial-gradient(800px 400px at 100% 100%, rgba(212, 180, 131, 0.06), transparent 50%),
+    var(--bg);
+  color: var(--fog);
+}
+
+button,
+input {
+  font-family: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+.stamp {
+  font-family: "Black Han Sans", sans-serif;
+  letter-spacing: 0.04em;
+}
+
+.shell {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 28px 20px 48px;
+}
+
+.home {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+}
+
+.home-card {
+  width: min(520px, 100%);
+  background: linear-gradient(180deg, #261c18, #181210);
+  border: 1px solid var(--line);
+  padding: 36px 32px 28px;
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.45);
+}
+
+.kicker {
+  color: var(--blood);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+}
+
+h1 {
+  font-family: "Black Han Sans", sans-serif;
+  font-size: clamp(42px, 8vw, 64px);
+  margin: 8px 0 6px;
+  color: #f3e6d4;
+  line-height: 1.05;
+}
+
+.lede {
+  margin: 0 0 28px;
+  color: #a89886;
+  line-height: 1.6;
+}
+
+label {
+  display: block;
+  font-size: 12px;
+  color: var(--gold);
+  margin-bottom: 6px;
+}
+
+input {
+  width: 100%;
+  background: #120e0c;
+  border: 1px solid var(--line);
+  color: #f3e6d4;
+  padding: 12px 14px;
+  font-size: 16px;
+  outline: none;
+}
+
+input:focus {
+  border-color: var(--gold);
+}
+
+.row {
+  display: flex;
+  gap: 10px;
+}
+
+.btn {
+  border: 0;
+  padding: 12px 16px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.btn-blood {
+  background: var(--blood);
+  color: #fff8f0;
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--gold);
+  border: 1px solid var(--line);
+}
+
+.btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.error {
+  color: var(--danger);
+  min-height: 1.4em;
+  margin: 10px 0 0;
+  font-size: 14px;
+}
+
+.rules {
+  margin-top: 28px;
+  padding-top: 18px;
+  border-top: 1px solid var(--line);
+  font-size: 13px;
+  color: #9a8b7b;
+  line-height: 1.7;
+}
+
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 16px;
+  margin-bottom: 22px;
+}
+
+.room-code {
+  font-size: 28px;
+  color: var(--gold);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 280px 1fr 300px;
+  gap: 16px;
+}
+
+@media (max-width: 960px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.panel {
+  background: rgba(24, 18, 16, 0.92);
+  border: 1px solid var(--line);
+  padding: 16px;
+  min-height: 220px;
+}
+
+.panel h2 {
+  margin: 0 0 12px;
+  font-size: 14px;
+  color: var(--gold);
+  letter-spacing: 0.12em;
+}
+
+.player {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+  border-bottom: 1px dashed #2c221c;
+  font-size: 14px;
+}
+
+.tag {
+  font-size: 11px;
+  padding: 2px 6px;
+  border: 1px solid var(--line);
+  color: var(--gold);
+}
+
+.tag.dead {
+  color: #6d6258;
+  text-decoration: line-through;
+}
+
+.mission {
+  border: 1px solid var(--line);
+  padding: 12px;
+  margin-bottom: 10px;
+  background: #16110f;
+}
+
+.mission.done {
+  opacity: 0.55;
+}
+
+.mission h3 {
+  margin: 0 0 6px;
+  color: #f3e6d4;
+  font-size: 16px;
+}
+
+.bar {
+  height: 6px;
+  background: #2a201b;
+  margin: 10px 0;
+}
+
+.bar > span {
+  display: block;
+  height: 100%;
+  background: var(--blood);
+}
+
+.chat {
+  display: flex;
+  flex-direction: column;
+  height: 420px;
+}
+
+.chat-log {
+  flex: 1;
+  overflow: auto;
+  font-size: 13px;
+  line-height: 1.5;
+  padding-right: 4px;
+}
+
+.sys {
+  color: var(--gold);
+  font-style: italic;
+}
+
+.chat-form {
+  display: flex;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.role-card {
+  min-height: 70vh;
+  display: grid;
+  place-items: center;
+  text-align: center;
+}
+
+.role-card.mafia h1 {
+  color: var(--blood);
+}
+
+.role-card.citizen h1 {
+  color: var(--citizen);
+}
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(8, 5, 4, 0.72);
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  z-index: 20;
+}
+
+.modal {
+  width: min(640px, 100%);
+  background: #1b1412;
+  border: 1px solid var(--gold);
+  padding: 24px;
+}
+
+.vote-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin: 16px 0;
+}
+
+.sync-btn {
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  border: 8px solid var(--line);
+  background: #2a201b;
+  color: #f3e6d4;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.sync-btn.go {
+  border-color: var(--ok);
+  background: #24401f;
+}
+
+.hint {
+  display: inline-block;
+  min-width: 28px;
+  margin: 0 4px;
+  padding: 6px 8px;
+  border: 1px solid var(--gold);
+  color: var(--gold);
+  font-weight: 700;
+}
+
+/* ───── 추가: 마피아 특별 미션 / 방해 공작 / 마피아 채팅 ───── */
+.small {
+  font-size: 12px;
+  color: #9a8b7b;
+  line-height: 1.6;
+  margin: 6px 0;
+}
+
+.tag.tag-mafia {
+  color: var(--blood);
+  border-color: var(--blood-dim);
+}
+
+.mission h3 .tag {
+  margin-left: 8px;
+  vertical-align: middle;
+}
+
+.mission.special {
+  border-color: var(--blood-dim);
+  background: #1c1210;
+}
+
+.mission.selected {
+  border-color: var(--gold);
+}
+
+.mission.sabotage {
+  border-style: dashed;
+  border-color: var(--blood-dim);
+}
+
+.sabotage-row {
+  flex-wrap: wrap;
+  margin: 10px 0;
+}
+
+.reveal-missions {
+  list-style: none;
+  margin: 24px auto 0;
+  padding: 0;
+  max-width: 460px;
+  text-align: left;
+}
+
+.reveal-missions li {
+  display: grid;
+  gap: 4px;
+  padding: 10px 12px;
+  margin-bottom: 8px;
+  border: 1px solid var(--line);
+  background: #16110f;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.reveal-missions li.special {
+  border-color: var(--blood-dim);
+}
+
+.reveal-missions li strong {
+  color: #f3e6d4;
+  font-size: 15px;
+}
+
+.reveal-missions li .tag {
+  justify-self: start;
+}
+
+.win-reason {
+  margin-bottom: 20px;
+}
+
+.result-list {
+  width: min(420px, 100%);
+  margin: 0 auto;
+  text-align: left;
+}
+
+.chat-tabs {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 8px;
+}
+
+.chat-tabs button {
+  background: transparent;
+  border: 1px solid var(--line);
+  color: #8a7b6d;
+  padding: 4px 10px;
+  font-size: 12px;
+}
+
+.chat-tabs button.on {
+  color: var(--gold);
+  border-color: var(--gold);
+}
+
+.chat-tabs button.mafia.on {
+  color: var(--blood);
+  border-color: var(--blood);
+}
+
+.mafia-msg {
+  color: #e0877d;
+}
+
+.chat.compact {
+  height: 200px;
+}
+
+.modal .chat {
+  margin-top: 8px;
+}
+
+/* ── Mafia noir UI update ── */
+:root {
+  --bg: #0b0808;
+  --bg-2: #17100f;
+  --paper: #211512;
+  --line: #4a3428;
+  --blood: #b92927;
+  --blood-dim: #6f201b;
+  --gold: #d9b77e;
+  --fog: #e1d1be;
+}
+
+body {
+  background:
+    radial-gradient(ellipse at 50% 0%, rgba(151, 28, 24, .20), transparent 45%),
+    radial-gradient(ellipse at 0% 100%, rgba(115, 61, 35, .10), transparent 38%),
+    repeating-linear-gradient(115deg, rgba(255,255,255,.012) 0 1px, transparent 1px 5px),
+    var(--bg);
+}
+
+.shell {
+  width: min(100%, 1720px);
+  max-width: 1720px;
+  padding: 28px clamp(18px, 2.8vw, 48px) 48px;
+}
+
+.home {
+  position: relative;
+  overflow: hidden;
+  background:
+    linear-gradient(90deg, rgba(8,5,5,.92), rgba(8,5,5,.62) 50%, rgba(8,5,5,.9)),
+    radial-gradient(ellipse at 20% 45%, rgba(164, 48, 33, .18), transparent 45%);
+}
+
+.home::before,
+.home::after {
+  content: "";
+  position: absolute;
+  pointer-events: none;
+  border: 1px solid rgba(217,183,126,.16);
+}
+.home::before { inset: 18px; }
+.home::after { inset: 26px; border-color: rgba(185,41,39,.12); }
+
+.home-card {
+  position: relative;
+  z-index: 1;
+  width: min(720px, 100%);
+  padding: clamp(28px, 4vw, 54px);
+  background: linear-gradient(145deg, rgba(38,25,21,.97), rgba(15,10,9,.98));
+  border: 1px solid #6b4934;
+  box-shadow: 0 28px 100px rgba(0,0,0,.62), inset 0 0 0 5px rgba(217,183,126,.025);
+}
+.home-card h1 { font-size: clamp(48px, 7vw, 82px); letter-spacing: .02em; text-shadow: 3px 4px 0 #3d211a; }
+.home-card .lede { max-width: 600px; }
+.home-card .row { align-items: stretch; }
+.home-card .row > .btn { min-width: 112px; }
+.home-card .rules { border-top-color: #4a3428; }
+
+.topbar {
+  align-items: center;
+  padding: 0 0 18px;
+  margin-bottom: 18px;
+  border-bottom: 1px solid rgba(217,183,126,.22);
+}
+.topbar::before { content: "CO-OP DECEPTION"; display: block; color: var(--blood); font-size: 10px; font-weight: 800; letter-spacing: .32em; position: absolute; transform: translateY(-21px); }
+.room-code { font-size: clamp(28px, 3vw, 42px); letter-spacing: .06em; text-shadow: 2px 2px 0 #43251c; }
+
+.grid {
+  grid-template-columns: minmax(250px, .85fr) minmax(430px, 1.45fr) minmax(300px, .95fr);
+  gap: 18px;
+  align-items: stretch;
+}
+.panel {
+  position: relative;
+  min-width: 0;
+  min-height: min(70vh, 760px);
+  padding: clamp(16px, 1.5vw, 24px);
+  background: linear-gradient(160deg, rgba(27,19,16,.97), rgba(15,11,10,.97));
+  border: 1px solid #4b3529;
+  box-shadow: inset 0 0 0 4px rgba(217,183,126,.018), 0 12px 35px rgba(0,0,0,.16);
+}
+.panel::before { content: ""; position: absolute; top: 0; left: 16px; right: 16px; height: 1px; background: linear-gradient(90deg, transparent, rgba(217,183,126,.35), transparent); }
+.panel h2 { font-size: 15px; color: #e8c894; letter-spacing: .14em; padding-bottom: 12px; border-bottom: 1px solid rgba(217,183,126,.14); }
+.panel-count { float: right; color: #a79580; font-size: 12px; letter-spacing: .04em; }
+.player { padding: 12px 2px; font-size: 14px; gap: 10px; }
+.player > span:first-child { min-width: 0; overflow-wrap: anywhere; }
+.tag { border-color: #5b4130; padding: 4px 8px; white-space: nowrap; }
+.tag.waiting { color: #9c8c78; }
+
+.lobby-grid { grid-template-columns: minmax(250px, .85fr) minmax(380px, 1.1fr) minmax(300px, .95fr); }
+.lobby-grid .panel { min-height: min(72vh, 780px); }
+.lobby-center { display: flex; flex-direction: column; gap: 18px; }
+.lobby-room-art {
+  min-height: 210px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 26px 18px;
+  border: 1px solid #53382b;
+  background: linear-gradient(rgba(13,8,7,.68), rgba(13,8,7,.92)), radial-gradient(ellipse at 50% 20%, rgba(176,38,31,.32), transparent 60%);
+}
+.lobby-room-code { font-family: "Black Han Sans", sans-serif; color: var(--gold); font-size: clamp(42px, 5vw, 68px); letter-spacing: .12em; line-height: 1.1; margin: 10px 0; }
+.lobby-room-art p { color: #c1ad97; margin: 6px 0 18px; }
+.lobby-count { display: flex; flex-direction: column; gap: 4px; padding: 10px 26px; border: 1px solid #634531; background: rgba(8,6,5,.55); }
+.lobby-count strong { color: #f1d2a0; font-size: 24px; }
+.lobby-count span { color: #988673; font-size: 12px; }
+.lobby-actions { display: grid; grid-template-columns: 1fr; gap: 8px; }
+.lobby-actions .btn { min-height: 48px; }
+.start-btn { font-size: 16px; box-shadow: 0 6px 24px rgba(185,41,39,.18); }
+.lobby-rules { padding: 16px; border: 1px solid rgba(217,183,126,.15); background: rgba(0,0,0,.15); }
+.lobby-rules .lede { font-size: 13px; margin-bottom: 10px !important; }
+.lobby-rules h2 { margin-bottom: 10px; }
+.lobby-player-note { margin-top: 18px; padding: 12px 10px; border-top: 1px solid rgba(217,183,126,.13); color: #ad9b84; font-size: 12px; }
+.status-dot { display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: #7eaa72; margin-right: 5px; box-shadow: 0 0 9px rgba(126,170,114,.4); }
+
+.playing-grid { grid-template-columns: minmax(230px, .78fr) minmax(480px, 1.45fr) minmax(320px, .98fr); }
+.playing-grid .panel { min-height: min(78vh, 900px); }
+.mission-panel { background: linear-gradient(155deg, rgba(25,17,15,.98), rgba(13,9,8,.98)); }
+.mission { padding: 16px; border-color: #4a3428; background: linear-gradient(145deg, #1d1512, #130e0c); }
+.mission.selected { box-shadow: inset 3px 0 0 var(--gold); }
+.mission.special { background: linear-gradient(145deg, #261311, #140b0a); }
+.bar { height: 8px; background: #34251e; }
+.bar > span { background: linear-gradient(90deg, #8f211e, #dc4135); box-shadow: 0 0 10px rgba(194,48,40,.18); }
+.chat-panel { display: flex; flex-direction: column; }
+.chat { height: auto; min-height: 400px; flex: 1; }
+.chat-log { scroll-behavior: smooth; overflow-y: auto; overscroll-behavior: contain; padding: 4px 8px 8px 0; scrollbar-color: #654637 #17100e; scrollbar-width: thin; }
+.chat-log > div { padding: 6px 8px; margin-bottom: 4px; border-left: 2px solid transparent; overflow-wrap: anywhere; }
+.chat-log > div:not(.sys):not(.mafia-msg):nth-child(odd) { background: rgba(255,255,255,.018); }
+.chat-log .sys { border-left-color: var(--gold); color: #d8b980; }
+.chat-log .mafia-msg { border-left-color: var(--blood); background: rgba(185,41,39,.08); }
+.chat-form { align-items: stretch; }
+.chat-form input { min-width: 0; }
+.chat-form .btn { flex: 0 0 auto; }
+
+@media (min-width: 1500px) {
+  .shell { padding-top: 34px; }
+  .grid { gap: 20px; }
+  .panel { padding: 24px; }
+  .chat { min-height: 520px; }
+}
+@media (max-width: 1100px) {
+  .grid, .lobby-grid, .playing-grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1.5fr); }
+  .chat-panel { grid-column: 1 / -1; min-height: 340px !important; }
+  .chat { min-height: 280px; }
+}
+@media (max-width: 720px) {
+  .shell { padding: 20px 12px 28px; }
+  .grid, .lobby-grid, .playing-grid { grid-template-columns: 1fr; }
+  .panel, .lobby-grid .panel, .playing-grid .panel { min-height: auto; }
+  .chat-panel { grid-column: auto; min-height: 340px !important; }
+  .chat { min-height: 260px; }
+  .home { padding: 16px; }
+  .home-card { padding: 26px 20px 22px; }
+  .home-card .row { flex-wrap: wrap; }
+  .home-card .row > * { flex: 1 1 100%; }
+  .lobby-room-art { min-height: 180px; }
+}
+
+/* ── Mission Mafia: full-screen noir redesign ── */
+:root {
+  --bg: #0b0808;
+  --bg-2: #120d0c;
+  --paper: #19110f;
+  --line: #39261e;
+  --blood: #b9342b;
+  --blood-dim: #69201c;
+  --gold: #d9b77e;
+  --fog: #e1d1bf;
+  --citizen: #9cc5d8;
+  --ok: #9db98a;
+  --danger: #e85c50;
+}
+
+html, body, #root { min-height: 100%; width: 100%; }
+body {
+  min-height: 100vh;
+  background:
+    radial-gradient(ellipse at 50% -14%, rgba(145, 38, 30, .23), transparent 46%),
+    radial-gradient(ellipse at 8% 78%, rgba(111, 65, 38, .10), transparent 30%),
+    radial-gradient(ellipse at 92% 82%, rgba(111, 65, 38, .08), transparent 28%),
+    repeating-linear-gradient(117deg, rgba(255,255,255,.008) 0 1px, transparent 1px 4px),
+    #0b0808;
+  color: var(--fog);
+}
+body::before {
+  content: "";
+  position: fixed;
+  inset: 12px;
+  border: 1px solid rgba(217,183,126,.10);
+  pointer-events: none;
+  z-index: 20;
+}
+button, input { font: inherit; }
+button { transition: border-color .18s ease, background .18s ease, transform .18s ease, box-shadow .18s ease; }
+button:not(:disabled):hover { border-color: rgba(217,183,126,.72); box-shadow: 0 0 22px rgba(185,52,43,.10); }
+button:not(:disabled):active { transform: translateY(1px); }
+input { border-radius: 0; min-height: 46px; }
+input:focus-visible, button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+
+.shell {
+  width: min(100% - 64px, 1540px);
+  max-width: 1540px;
+  margin: 0 auto;
+  padding: 34px 0 56px;
+}
+.topbar {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  min-height: 62px;
+  padding: 0 0 20px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid rgba(217,183,126,.18);
+}
+.topbar::before { transform: none; top: -13px; }
+.room-code { font-size: clamp(32px, 3.2vw, 48px); }
+.grid, .lobby-grid, .playing-grid {
+  display: grid;
+  grid-template-columns: minmax(270px, .88fr) minmax(460px, 1.28fr) minmax(320px, 1fr);
+  gap: 18px;
+  align-items: stretch;
+}
+.panel, .lobby-grid .panel, .playing-grid .panel {
+  min-height: clamp(570px, 70vh, 850px);
+  padding: clamp(20px, 1.65vw, 28px);
+  border: 1px solid rgba(217,183,126,.24);
+  background:
+    linear-gradient(145deg, rgba(29,20,17,.96), rgba(14,10,9,.97)),
+    #130e0c;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.018), 0 18px 55px rgba(0,0,0,.24);
+}
+.panel::before { left: 18px; right: 18px; opacity: .75; }
+.panel h2 { font-size: 15px; margin: 0 0 8px; padding-bottom: 14px; }
+.player { padding: 15px 4px; font-size: 15px; border-bottom: 1px solid rgba(217,183,126,.10); }
+.tag { font-size: 11px; letter-spacing: .04em; }
+.lobby-grid { grid-template-columns: minmax(270px, .86fr) minmax(470px, 1.18fr) minmax(320px, 1fr); }
+.lobby-grid .panel { min-height: clamp(570px, 69vh, 820px); }
+.lobby-center { gap: 16px; }
+.lobby-room-art {
+  position: relative;
+  min-height: 245px;
+  overflow: hidden;
+  border-color: rgba(217,183,126,.32);
+  background:
+    linear-gradient(180deg, rgba(13,8,7,.56), rgba(13,8,7,.93)),
+    radial-gradient(ellipse at 50% 8%, rgba(185,52,43,.34), transparent 65%),
+    repeating-linear-gradient(135deg, rgba(217,183,126,.035) 0 1px, transparent 1px 7px),
+    #0d0908;
+  box-shadow: inset 0 0 48px rgba(0,0,0,.4);
+}
+.lobby-room-art::after {
+  content: "CLASSIFIED / CASE FILE";
+  position: absolute;
+  right: 12px;
+  bottom: 10px;
+  color: rgba(217,183,126,.24);
+  font-size: 8px;
+  letter-spacing: .22em;
+}
+.lobby-room-code {
+  font-size: clamp(52px, 5.4vw, 78px);
+  text-shadow: 0 0 32px rgba(217,183,126,.13), 3px 3px 0 #37221a;
+}
+.lobby-room-art p { max-width: 360px; font-size: 14px; }
+.lobby-count { min-width: 150px; padding: 12px 24px; }
+.lobby-count strong { font-size: 28px; }
+.lobby-actions { gap: 10px; }
+.lobby-actions .btn { min-height: 52px; }
+.start-btn { letter-spacing: .12em; }
+.lobby-rules { padding: 20px; border-color: rgba(217,183,126,.20); background: rgba(0,0,0,.20); }
+.lobby-rules h2 { margin: 0 0 14px; }
+.lobby-rules .lede { font-size: 13px; line-height: 1.8; }
+.lobby-chat-panel { display: flex; flex-direction: column; }
+.chat { display: flex; flex: 1; min-height: 0; flex-direction: column; }
+.chat-log {
+  flex: 1;
+  min-height: 0;
+  height: auto;
+  max-height: none;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scroll-behavior: smooth;
+  padding: 8px 8px 10px 0;
+  scrollbar-color: #634433 #17100e;
+  scrollbar-width: thin;
+}
+.chat-log > div { padding: 9px 10px; margin-bottom: 5px; line-height: 1.55; }
+.chat-form { display: flex; gap: 8px; margin-top: 12px; padding-top: 12px; border-top: 1px solid rgba(217,183,126,.12); }
+.chat-form input { flex: 1; min-width: 0; }
+.chat-form .btn { min-width: 58px; }
+.chat-tabs { display: flex; gap: 8px; margin-bottom: 10px; }
+.chat-tabs button { flex: 1; padding: 9px 10px; background: #130d0b; color: #a9957e; border: 1px solid var(--line); }
+.chat-tabs button.on { color: #f0d5a8; border-color: var(--gold); background: rgba(217,183,126,.08); }
+.chat-tabs button.mafia.on { border-color: var(--blood); color: #ffaaa2; background: rgba(185,52,43,.12); }
+.playing-grid { grid-template-columns: minmax(250px, .82fr) minmax(500px, 1.35fr) minmax(330px, 1fr); }
+.playing-grid .panel { min-height: clamp(620px, 76vh, 920px); }
+.mission { padding: 18px; margin: 10px 0; }
+.mission h3 { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; }
+.bar { height: 8px; overflow: hidden; }
+.bar > span { transition: width .25s ease; }
+.home { position: relative; min-height: 100vh; padding: 36px 20px; }
+.home-card {
+  width: min(620px, 100%);
+  padding: 44px 42px 34px;
+  border-color: rgba(217,183,126,.27);
+  background:
+    linear-gradient(155deg, rgba(32,22,18,.98), rgba(14,10,9,.98)),
+    #17100e;
+  box-shadow: 0 35px 110px rgba(0,0,0,.48), inset 0 0 0 1px rgba(255,255,255,.025);
+}
+.home-card h1 { font-size: clamp(52px, 7vw, 76px); letter-spacing: -.035em; }
+.home-card .lede { font-size: 15px; margin-bottom: 28px; line-height: 1.85; }
+.home-card .rules { margin-top: 30px; padding-top: 22px; border-top: 1px solid rgba(217,183,126,.17); line-height: 1.9; font-size: 13px; }
+.home-card .row { align-items: stretch; }
+.home-card .row .btn { min-height: 48px; }
+.error { color: #ff8f84; min-height: 1.2em; }
+.role-card { min-height: 100vh; padding: 40px 20px; }
+.role-card > div { width: min(760px, 100%); }
+.reveal-missions { padding: 0; list-style: none; }
+.reveal-missions li { padding: 14px 16px; border: 1px solid var(--line); margin: 8px 0; background: rgba(0,0,0,.18); }
+.overlay { backdrop-filter: blur(8px); }
+.modal { border-color: rgba(217,183,126,.42); box-shadow: 0 30px 100px rgba(0,0,0,.65); }
+
+@media (min-width: 1600px) {
+  .shell { width: min(100% - 96px, 1640px); max-width: 1640px; padding-top: 40px; }
+  .grid, .lobby-grid, .playing-grid { gap: 22px; }
+  .panel, .lobby-grid .panel, .playing-grid .panel { padding: 28px; }
+}
+@media (max-width: 1200px) {
+  .shell { width: min(100% - 40px, 1000px); }
+  .grid, .lobby-grid, .playing-grid { grid-template-columns: minmax(220px, .75fr) minmax(0, 1.25fr); }
+  .chat-panel { grid-column: 1 / -1; min-height: 360px !important; }
+  .chat { min-height: 300px; }
+}
+@media (max-width: 760px) {
+  body::before { inset: 5px; }
+  .shell { width: 100%; padding: 24px 16px 32px; }
+  .topbar { margin: 0 0 16px; }
+  .grid, .lobby-grid, .playing-grid { grid-template-columns: minmax(0, 1fr); gap: 12px; }
+  .panel, .lobby-grid .panel, .playing-grid .panel { min-height: auto; padding: 18px; }
+  .chat-panel { grid-column: auto; min-height: 360px !important; }
+  .chat { min-height: 300px; }
+  .home { padding: 18px 14px; }
+  .home-card { padding: 30px 22px 24px; }
+  .home-card .row { flex-wrap: wrap; }
+  .home-card .row > * { flex: 1 1 100%; }
+  .lobby-room-art { min-height: 220px; }
+  .lobby-room-code { font-size: 54px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; }
+}
