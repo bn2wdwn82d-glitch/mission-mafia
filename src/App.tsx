@@ -364,7 +364,7 @@ function Table({
 async function addBots(roomCode: string, count: number) {
   if (count <= 0) return;
   try {
-    const res = await fetch(`http://localhost:3001/add-bots`, {
+ const res = await fetch(`/add-bots`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ roomCode, count }),
