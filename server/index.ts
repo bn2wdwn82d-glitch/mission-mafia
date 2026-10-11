@@ -21,7 +21,7 @@ import {
   reconnect,
   replay,
   sabotage,
-  kill,
+  killPlayer,
   serialize,
   startGame,
   startSync,
@@ -123,7 +123,7 @@ setInterval(() => {
 app.get("/health", (_req, res) => res.json({ ok: true }));
 
 // 디버깅: 현재 활성화된 방 목록
-app.get("/rooms", (req, res) => {
+app.get("/rooms", (_req, res) => {
   try {
     const roomList = [];
     for (const [code, room] of rooms.entries()) {
@@ -156,7 +156,7 @@ app.post("/add-bots", (req, res) => {
       const name = randomBotName(room);
       room.players.set(botId, {
         id: botId, name, socketId: null, connected: true, alive: true, role: null,
-        missionIds: [], meetingsLeft: 1, codeHints: [], forgeHints: [],
+        missionIds: [], meetingsLeft: 1, codeHints: [], forgeHints: [], killCount: 0, killReadyAt: 0,
       });
       botIds.add(botId);
       addedCount++;
@@ -267,7 +267,7 @@ io.on("connection", (socket) => {
     ({ playerId, text, channel }: { playerId: string; text: string; channel?: ChatChannel }) => {
       wrap(() => {
         const room = roomOf(playerId);
-        chat(room, playerId, text, channel === "mafia" ? "mafia" : "all");
+        chat(room, playerId, text, channel === "mafia" ? "mafia" : channel === "dead" ? "dead" : "all");
         emitRoom(room);
       }, socket);
     },
@@ -332,10 +332,11 @@ io.on("connection", (socket) => {
     },
   );
 
-  socket.on("kill", ({ playerId, target }: { playerId: string; target: string }) => {
+
+  socket.on("kill", ({ playerId, targetId }: { playerId: string; targetId: string }) => {
     wrap(() => {
       const room = roomOf(playerId);
-      kill(room, playerId, target);
+      killPlayer(room, playerId, targetId);
       emitRoom(room);
     }, socket);
   });
