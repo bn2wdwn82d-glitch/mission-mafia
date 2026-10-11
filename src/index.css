@@ -1452,3 +1452,33 @@ body.playing-background {
     min-height: 0;
   }
 }
+
+/* 마피아 미션 패널 스크롤 수정 */
+.playing-grid .panel.mission-panel {
+  min-height: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior-y: contain;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(220, 191, 138, 0.55) transparent;
+}
+
+/* 패널 내부 미션들이 줄어들지 않게 유지 */
+.playing-grid .mission-panel > * {
+  flex-shrink: 0;
+}
+
+/* 스크롤바 표시 */
+.playing-grid .panel.mission-panel::-webkit-scrollbar {
+  width: 7px;
+}
+
+.playing-grid .panel.mission-panel::-webkit-scrollbar-thumb {
+  background: rgba(220, 191, 138, 0.45);
+  border-radius: 4px;
+}
+
+.playing-grid .panel.mission-panel::-webkit-scrollbar-track {
+  background: transparent;
+}
