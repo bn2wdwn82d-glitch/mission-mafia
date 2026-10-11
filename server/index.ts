@@ -122,7 +122,7 @@ setInterval(() => {
 app.get("/health", (_req, res) => res.json({ ok: true }));
 
 // 디버깅: 현재 활성화된 방 목록
-app.get("/rooms", (req, res) => {
+app.get("/rooms", (_req, res) => {
   try {
     const roomList = [];
     for (const [code, room] of rooms.entries()) {
