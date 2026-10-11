@@ -536,7 +536,7 @@ function maybeCompleteForge(room: Room): void {
 }
 
 /** 마피아의 죽이기 기능: 시민을 죽인다. */
-export function kill(room: Room, playerId: string, targetId: string): void {
+export function killPlayer(room: Room, playerId: string, targetId: string): void {
   requireAlive(room, playerId);
   if (room.phase !== "playing") throw new Error("지금은 죽일 수 없습니다.");
 
