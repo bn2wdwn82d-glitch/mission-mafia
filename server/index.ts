@@ -1,4 +1,6 @@
 import express from "express";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
 import { createServer } from "node:http";
 import cors from "cors";
 import { Server } from "socket.io";
@@ -33,6 +35,12 @@ import type { ChatChannel, CitizenMissionId } from "../shared/types.ts";
 const app = express();
 app.use(cors());
 app.use(express.json());
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const clientDist = path.resolve(__dirname, "../dist");
+
+app.use(express.static(clientDist));
 
 // 서버가 직접 조종하는 AI 봇 ID 목록
 const botIds = new Set<string>();
