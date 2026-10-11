@@ -1,3 +1,4 @@
+import path from "node:path";
 import express from "express";
 import { createServer } from "node:http";
 import cors from "cors";
@@ -30,7 +31,16 @@ import type { ChatChannel, CitizenMissionId } from "../shared/types.ts";
 
 const app = express();
 app.use(cors());
+
 app.get("/health", (_req, res) => res.json({ ok: true }));
+
+const distPath = path.resolve(process.cwd(), "dist");
+
+app.use(express.static(distPath));
+
+app.get(/.*/, (_req, res) => {
+  res.sendFile(path.join(distPath, "index.html"));
+});
 
 const httpServer = createServer(app);
 const io = new Server(httpServer, {
