@@ -1,3 +1,5 @@
+import path from "node:path";
+import { fileURLToPath } from "node:url";
 import express from "express";
 import { createServer } from "node:http";
 import cors from "cors";
@@ -34,7 +36,14 @@ import type { ChatChannel, CitizenMissionId } from "../shared/types.ts";
 const app = express();
 app.use(cors());
 app.use(express.json());
+const currentDir = path.dirname(fileURLToPath(import.meta.url));
+const distPath = path.resolve(currentDir, "../dist");
 
+app.use(express.static(distPath));
+
+app.get("/", (_req, res) => {
+  res.sendFile(path.join(distPath, "index.html"));
+});
 // 서버가 직접 조종하는 AI 봇 ID 목록
 const botIds = new Set<string>();
 const botNames = ["검은장미", "밤의그림자", "붉은여우", "달빛추적자", "유령신사", "까마귀", "안개속발자국", "은빛단서", "마지막목격자", "푸른장막", "검은우산"];
