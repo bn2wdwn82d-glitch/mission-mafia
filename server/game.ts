@@ -185,6 +185,7 @@ export function createRoom(playerId: string, name: string, socketId: string): Ro
     winner: null,
     winReason: null,
     lastEject: null,
+    lastKill: null,
     startedAt: null,
     playingAt: null,
     meetingTimer: null,
@@ -535,11 +536,13 @@ function maybeCompleteForge(room: Room): void {
 }
 
 /** 마피아의 죽이기 기능: 시민을 죽인다. */
-export function kill(room: Room, playerId: string, targetId: string): void {
-  requireAlive(room, playerId);
-  if (room.phase !== "playing") throw new Error("지금은 죽일 수 없습니다.");
-  const player = room.players.get(playerId)!;
-  if (player.role !== "mafia") throw new Error("마피아만 죽일 수 있습니다.");
+
+  const target = room.players.get(targetId);
+  if (!target) throw new Error("대상을 찾을 수 없습니다.");
+  if (!target.alive) throw new Error("이미 죽은 대상입니다.");
+  if (target.role === null) throw new Error("대상의 역할이 아직 정해지지 않았습니다.");
+  if (target.role === "mafia") throw new Error("마피아는 죽일 수 없습니다.");
+
 
   const now = Date.now();
   if (now < player.killReadyAt) {
