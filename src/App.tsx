@@ -703,7 +703,7 @@ function KillPanel({ state, playerId }: { state: ClientState; playerId: string }
             key={p.id}
             className="btn btn-ghost"
             disabled={wait > 0 || killCount >= 2}
-            onClick={() => socket.emit("kill", { playerId, targetId: p.id })
+            onClick={() => socket.emit("kill", { playerId, targetId: p.id })}
           >
             {p.name}
           </button>
